@@ -106,7 +106,9 @@
                     <div class="flex gap-2 mt-2">
                         <p class="text-xs text-white">{repo.language}</p>
                         <p class="text-xs text-white">{repo.stars} stars</p>
-                        <p class="text-xs text-white">{repo.fork} forks</p>
+                        {#if repo.fork}
+                            <p class="text-xs text-white">Forked</p>
+                        {/if}
                     </div>
                 </div>
             {/each}

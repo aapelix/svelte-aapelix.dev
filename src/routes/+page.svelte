@@ -95,7 +95,7 @@
           <div class="fade-overlay right"></div>
         </div>
 
-        <div class="mt-10">
+        <div class="mt-10 px-2">
             {#each repos.slice(0, limit) as repo}
                 <div class="flex flex-col gap-2 p-4 rounded-xl bg-[#181818] w-full mt-2">
                     <a href={repo.url} target="_blank" class="flex items-center gap-2 text-white">
@@ -119,9 +119,9 @@
             </div>
         </div>
 
-        <div class="flex items-center flex-col mt-10">
+        <div class="flex items-center flex-col mt-10 px-2">
             <h1 class="text-6xl font-bold text-center">Explore my socials</h1>
-            <div class="mt-5 flex gap-2">
+            <div class="mt-5 flex gap-2 flex-wrap justify-center items-center">
                 <a href="https://github.com/aapelix" target="_blank" class="rounded-xl bg-[#222222] px-4 w-44 py-4 gap-2 text-white flex items-center justify-center hover:w-96 duration-300"><Github />Github</a>
                 <a href="https://youtube.com/@aapelix" target="_blank" class="rounded-xl bg-[#181818] px-4 w-44 py-4 gap-2 text-white flex items-center justify-center hover:w-96 duration-300"><Youtube />Youtube</a>
                 <a href="https://x.com/@aapelix1" target="_blank" class="rounded-xl bg-[#181818] px-4 w-44 py-4 gap-2 text-white flex items-center justify-center hover:w-96 duration-300"><Twitter />Twitter</a>

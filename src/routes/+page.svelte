@@ -23,20 +23,10 @@
       "installed Arch Linux", 
       "planted an uranium tree on his garden", 
       "hacked the mainframe with a toaster",
-      "built a time machine with spare parts",
-      "taught a cat to speak Finnish",
-      "coded a quantum AI on a coffee machine",
-      "invented a self-aware toaster",
       "reverse-engineered a black hole in his backyard",
-      "installed Gentoo with one hand tied",
-      "trained a trashcan to use Arch Linux",
-      "transplanted his consciousness to the cloud",
-      "fought off a cyber attack using only Vim",
       "recompiled the universe to run on Arch",
       "convinced the Terminator to use Rust",
       "built a spaceship out of IKEA parts",
-      "reprogrammed reality with Rust",
-      "hosted a LAN party on the Moon"
     ];
     
     function randomQuote() {

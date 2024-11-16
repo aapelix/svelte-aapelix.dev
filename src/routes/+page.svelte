@@ -3,6 +3,60 @@
     import { onMount } from "svelte";
 
     import { Github, Youtube, Twitter } from "lucide-svelte"
+    import { tweened } from 'svelte/motion';
+    import { cubicOut } from 'svelte/easing';
+
+    /**
+	 * @type {HTMLElement}
+	 */
+    let container;
+    /**
+	 * @type {HTMLDivElement}
+	 */
+    let image;
+    let scrollPos = 0;
+    const SCALE_FACTOR = 0.1;
+    const SCROLL_THRESHOLD = 100;
+
+    const smoothScale = tweened(1, {
+      duration: 1500,
+      easing: cubicOut
+    });
+
+    let ticking = false;
+
+    function handleScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (!container || !image) return;
+          
+          const scrollPos = window.scrollY;
+          
+          if (scrollPos <= SCROLL_THRESHOLD) {
+            const scale = 1 - (scrollPos / SCROLL_THRESHOLD) * SCALE_FACTOR;
+            smoothScale.set(scale);
+            
+            const borderRadius = Math.min(32, (scrollPos / SCROLL_THRESHOLD) * 32);
+            image.style.borderRadius = `${borderRadius}px`;
+          }
+          
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    }
+
+    $: if (image) {
+      image.style.transform = `scale(${$smoothScale})`;
+    }
+
+    onMount(() => {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    });
 
     /**
 	 * @type {any[]}
@@ -21,12 +75,7 @@
       "ate uranium", 
       "bought a fighter jet", 
       "installed Arch Linux", 
-      "planted an uranium tree on his garden", 
-      "hacked the mainframe with a toaster",
-      "reverse-engineered a black hole in his backyard",
-      "recompiled the universe to run on Arch",
-      "convinced the Terminator to use Rust",
-      "built a spaceship out of IKEA parts",
+      "planted an uranium tree on his garden",
     ];
     
     function randomQuote() {
@@ -74,41 +123,45 @@
 
 </script>
     
-    <main class="flex justify-center items-center pb-5">
-      <div class="md:w-2/3 w-full">
-        <header class="text-center flex flex-col justify-center h-screen relative">
-          <div 
-            class="absolute top-1/2 transform -translate-y-1/2 w-full md:h-2/3 h-full md:scale-125 rounded-xl bg-cover bg-center opacity-50 mx-auto"
-            style="background-image: url('/g.png');">
+<main class="flex justify-center items-center pb-5">
+  <div class="w-full">
+    <header class="text-center flex flex-col justify-center h-screen relative overflow-hidden" bind:this={container}>
+      <div
+        bind:this={image}
+        class="w-full h-full absolute top-0 left-0 origin-center transform-gpu will-change-transform md:px-0 px-4"
+        style="background-image: url('/g.png'); background-size: cover; background-position: center;"
+      >
+      </div>
+      <div class="relative z-10 px-4">
+        <h1 class="md:text-9xl text-5xl font-black leading-tight">"It's me, aapelix"</h1>
+        <p class="mt-5 text-xl md:text-2xl">he said and {quote}</p>
+      </div>
+    </header>
+    <div class="w-screen flex justify-center mt-10">
+    <div class="slider-container w-2/3">
+      <div class="fade-overlay left"></div>
+        <div class="infinite-scroll">
+          <div class="image-track" bind:this={imageTrack}>
+            <img src="/rust.png" alt="rust">
+            <img src="/csharp.png" alt="csharp">
+            <img src="/astro.png" alt="astro">
+            <img src="/go.png" alt="go">
+            <img src="/java.png" alt="java">
+            <img src="/svelte.png" alt="svelte">
+            <img src="/cpp.png" alt="cpp">
+            <img src="/python.png" alt="python">
+            <img src="/js.png" alt="js">
+            <img src="/vue.png" alt="vue">
+            <img src="/c.png" alt="c">
+            <img src="/react.png" alt="react">
+            <img src="/ts.png" alt="ts">
           </div>
-          <div class="relative z-10">
-            <h1 class="md:text-9xl text-7xl font-black">"It's me, aapelix"</h1>
-            <p class="mt-5 text-2xl">he said and {quote}</p>
-          </div>
-        </header>
-        <div class="slider-container">
-          <div class="fade-overlay left"></div>
-          <div class="infinite-scroll">
-            <div class="image-track" bind:this={imageTrack}>
-              <img src="/rust.png" alt="rust">
-              <img src="/csharp.png" alt="csharp">
-              <img src="/astro.png" alt="astro">
-              <img src="/go.png" alt="go">
-              <img src="/java.png" alt="java">
-              <img src="/svelte.png" alt="svelte">
-              <img src="/cpp.png" alt="cpp">
-              <img src="/python.png" alt="python">
-              <img src="/js.png" alt="js">
-              <img src="/vue.png" alt="vue">
-              <img src="/c.png" alt="c">
-              <img src="/react.png" alt="react">
-              <img src="/ts.png" alt="ts">
-            </div>
-          </div>
-          <div class="fade-overlay right"></div>
         </div>
-
-        <div class="mt-10 px-2">
+      <div class="fade-overlay right"></div>
+    </div>
+  </div>
+    <div class="w-screen flex justify-center">
+        <div class="mt-10 px-2 w-2/3 flex flex-col items-center justify-center">
             {#each repos.slice(0, limit) as repo}
                 <div class="flex flex-col gap-2 p-4 rounded-xl bg-[#181818] w-full mt-2">
                     <a href={repo.url} target="_blank" class="flex items-center gap-2 text-white">
@@ -131,6 +184,7 @@
                 <button class="rounded-xl bg-[#222222] disabled:bg-[#181818] px-4 w-44 py-4 disabled:cursor-not-allowed" onclick={() => limit = limit - 5} disabled={limit <= 5}>Show less</button>
             </div>
         </div>
+      </div>
 
         <div class="flex items-center flex-col mt-10 px-2">
             <h1 class="text-6xl font-bold text-center">Explore my socials</h1>
@@ -145,16 +199,16 @@
     
     <style>
       :root {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        color: #f0f0f0;
-        background-color: #0f0f0f;
-      }
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #f0f0f0;
+    background-color: #0f0f0f;
+  }
     
-      .slider-container {
-        position: relative;
-        width: 100%;
-        height: 100px;
-      }
+  .slider-container {
+    position: relative;
+    height: 100px;
+    margin: 0 auto; /* Centers the container */
+  }
     
       .infinite-scroll {
         overflow: hidden;
@@ -198,22 +252,22 @@
       }
     
       .fade-overlay.left {
-        left: 0;
-        background: linear-gradient(to right, 
-          rgba(15, 15, 15, 1) 0%,
-          rgba(15, 15, 15, 0.9) 40%,
-          rgba(15, 15, 15, 0) 100%
-        );
-      }
-    
-      .fade-overlay.right {
-        right: 0;
-        background: linear-gradient(to left, 
-          rgba(15, 15, 15, 1) 0%,
-          rgba(15, 15, 15, 0.9) 40%,
-          rgba(15, 15, 15, 0) 100%
-        );
-      }
+    left: 0;
+    background: linear-gradient(to right, 
+      rgba(15, 15, 15, 1) 0%,
+      rgba(15, 15, 15, 0.9) 40%,
+      rgba(15, 15, 15, 0) 100%
+    );
+  }
+
+  .fade-overlay.right {
+    right: 0;
+    background: linear-gradient(to left, 
+      rgba(15, 15, 15, 1) 0%,
+      rgba(15, 15, 15, 0.9) 40%,
+      rgba(15, 15, 15, 0) 100%
+    );
+  }
     
       @keyframes scroll {
         0% {

@@ -85,7 +85,7 @@
 <svelte:window bind:scrollY={y} />
 
 <main class="bg-[#000000] text-white min-h-screen overflow-x-hidden">
-  <!-- Hero Section with Apple-like Blur and Gradient -->
+
   <header 
   class="relative h-screen flex items-center justify-center overflow-hidden bg-black text-white"
 >

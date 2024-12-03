@@ -108,7 +108,7 @@
         class="mt-4 text-xl md:text-2xl text-gray-400 font-light opacity-80"
         in:fly={{ y: 50, duration: 1000, delay: 200 }}
       >
-        Software Developer
+        Finn & Software Developer
       </p>
       
       <div 

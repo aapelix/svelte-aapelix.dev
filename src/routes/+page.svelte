@@ -86,12 +86,12 @@
 
 <main class="bg-[#000000] text-white min-h-screen overflow-x-hidden font-mono">
   <nav class="absolute top-0 left-0 w-full z-50 flex gap-4 justify-center items-center mt-4 nav">
-    <a class="hover:font-bold" use:scrollTo={"projects"}>About</a>
+    <a class="hover:font-bold" use:scrollTo={"header"}>About</a>
     <a class="hover:font-bold" use:scrollTo={"projects"}>Projects</a>
-    <a class="hover:font-bold" use:scrollTo={"projects"}>Github</a>
+    <a class="hover:font-bold" href="https://github.com/aapelix">Github</a>
   </nav>
   <header 
-  class="relative h-screen flex items-center justify-center overflow-hidden bg-black text-white z-0"
+  class="relative h-screen flex items-center justify-center overflow-hidden bg-black text-white z-0" use:scrollRef={"header"}
 >
   
   <div class="max-w-4xl px-6 text-center relative z-10">

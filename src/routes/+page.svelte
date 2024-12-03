@@ -32,7 +32,7 @@
     },
     {
       title: 'abrw6',
-      description: 'A hobby web browser made with Rust + gtk6 & gtk6WebView',
+      description: 'A hobby web browser made with Rust + gtk6 & webview6',
       technologies: ['Rust', 'gtk6', 'GtkWebView', 'adblock-rust'],
       icon: '/rust.png',
       link: 'https://github.com/aapelix/abrw6'
@@ -84,11 +84,16 @@
 
 <svelte:window bind:scrollY={y} />
 
-<main class="bg-[#000000] text-white min-h-screen overflow-x-hidden">
-
+<main class="bg-[#000000] text-white min-h-screen overflow-x-hidden font-mono">
+  <nav class="absolute top-0 left-0 w-full z-50 flex gap-4 justify-center items-center mt-4 nav">
+    <a class="hover:font-bold" use:scrollTo={"projects"}>About</a>
+    <a class="hover:font-bold" use:scrollTo={"projects"}>Projects</a>
+    <a class="hover:font-bold" use:scrollTo={"projects"}>Github</a>
+  </nav>
   <header 
-  class="relative h-screen flex items-center justify-center overflow-hidden bg-black text-white"
+  class="relative h-screen flex items-center justify-center overflow-hidden bg-black text-white z-0"
 >
+  
   <div class="max-w-4xl px-6 text-center relative z-10">
     {#if mounted}
       <h1 
@@ -103,7 +108,7 @@
         class="mt-4 text-xl md:text-2xl text-gray-400 font-light opacity-80"
         in:fly={{ y: 50, duration: 1000, delay: 200 }}
       >
-        Developer exploring the edges of technology
+        Software Developer
       </p>
       
       <div 
@@ -115,7 +120,7 @@
           use:scrollTo={"projects"}
           class="px-6 py-3 border border-white/20 rounded-full backdrop-blur-md hover:bg-white/10 transition-all duration-300"
         >
-          View Projects
+          My projects
         </a>
         <a 
           href="https://aapelix.dev/git" 
@@ -292,6 +297,7 @@
       </a>
     </div>
   </section>
+
 </main>
 
 <style lang="postcss">

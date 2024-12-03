@@ -88,7 +88,7 @@
   <nav class="absolute top-0 left-0 w-full z-50 flex gap-4 justify-center items-center mt-4 nav">
     <a class="hover:font-bold" use:scrollTo={"header"}>About</a>
     <a class="hover:font-bold" use:scrollTo={"projects"}>Projects</a>
-    <a class="hover:font-bold" href="https://github.com/aapelix">Github</a>
+    <a class="hover:font-bold" target="_blank" href="https://github.com/aapelix">Github</a>
   </nav>
   <header 
   class="relative h-screen flex items-center justify-center overflow-hidden bg-black text-white z-0" use:scrollRef={"header"}
@@ -122,8 +122,9 @@
         >
           My projects
         </a>
-        <a 
-          href="https://aapelix.dev/git" 
+        <a
+          target="_blank"
+          href="https://github.com/aapelix" 
           class="px-6 py-3 bg-[#A5B4FC] font-bold border border-white/10 rounded-full backdrop-blur-md hover:bg-white/20 transition-all duration-300"
         >
           GitHub
